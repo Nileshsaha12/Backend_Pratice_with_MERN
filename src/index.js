@@ -5,8 +5,21 @@ dotenv.config({
     path:'./env'
 })
 
-
+//When a async method completes it's always return a promise, So we have to handle it using then and catch 
 connectDB()
+.then(() => {
+    app.on("error", (error) => {
+        console.log("ERR :" ,error);
+        throw error
+    })
+    app.listen(process.env.PORT || 8000 , () => {
+        console.log(`Server is running at port : $
+            {process.env.PORT}`);
+    })
+})
+.catch((err) => {
+    console.log("Mongo db connect failed");
+})
 
 
 
