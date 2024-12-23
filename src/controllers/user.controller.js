@@ -236,7 +236,7 @@ const getCurrentUser = asyncHandler(async(req,res) => {
   return res
   .status(200)
   .json(
-    200,req.user,"Current user fetched successfully"
+    new ApiResponse(200,req.user,"Current user fetched successfully")
   )
 })
 
@@ -247,7 +247,7 @@ const updateaccountDetails = asyncHandler(async(req,res)=>{
     throw new ApiError(400,"All fields are required")
   }
 
-  const user = User.findByIdAndUpdate(
+  const user = await User.findByIdAndUpdate(
     req.user?._id,
     {
       $set: {
@@ -260,7 +260,7 @@ const updateaccountDetails = asyncHandler(async(req,res)=>{
 
   return res
   .status(200)
-  .json(new ApiResponse(200,"Account details updates successfully"))
+  .json(new ApiResponse(200,user,"Account details updates successfully"))
 })
 
 const updateUserAvater= asyncHandler(async(req,res)=>
