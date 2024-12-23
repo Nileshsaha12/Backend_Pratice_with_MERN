@@ -1,0 +1,7 @@
+{
+    "editor.hover.enabled": true,
+    "editor.inlineSuggest.edits.experimental.useInterleavedLinesDiff": "always",
+    "editor.inlineSuggest.edits.experimental.useMixedLinesDiff": "whenPossible",
+    "editor.inlineSuggest.suppressSuggestions": true,
+    "editor.inlineSuggest.syntaxHighlightingEnabled": true
+}
