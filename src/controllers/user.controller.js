@@ -190,16 +190,19 @@ const refreshAccessToken = asyncHandler(async(req,res) => {
      secure:true
    }
  
-   const {accessToken,newrefreshToken} = await generateAccessandRefreshToken(user._id)
- 
+   const {accessToken,refreshToken} = await generateAccessandRefreshToken(user._id)
+   console.log(accessToken);
+   console.log(refreshToken);
+   
+   
    return res
    .status(200)
    .cookie("accessToken",accessToken,options)
-   .cookie("refreshToken",newrefreshToken,options)
+   .cookie("refreshToken",refreshToken,options)
    .json(
      new ApiResponse(
        200,
-       {accessToken, refreshToken:newrefreshToken},
+       {accessToken, refreshToken},
        "access token refreshed"
      )
    )
@@ -243,7 +246,7 @@ const getCurrentUser = asyncHandler(async(req,res) => {
 const updateaccountDetails = asyncHandler(async(req,res)=>{
   const {fullName,email} = req.body
 
-  if(!fullName && !email){
+  if(!fullName || !email){
     throw new ApiError(400,"All fields are required")
   }
 
@@ -251,7 +254,7 @@ const updateaccountDetails = asyncHandler(async(req,res)=>{
     req.user?._id,
     {
       $set: {
-        fullName: fullName,
+        fullname:fullName,
         email: email
       }
     },
